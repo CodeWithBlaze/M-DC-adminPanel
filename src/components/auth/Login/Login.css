@@ -1,0 +1,28 @@
+.login-container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-inputs{
+
+    height :40%;
+    width: 30%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.login-inputs > input{
+    width: 80%;
+    height: 15%;
+}
+
+.login-inputs > button{
+    width: 40%;
+    height: 8%;
+}
