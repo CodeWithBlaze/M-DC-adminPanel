@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Home } from "../Home/Home";
 import "./Class.css";
 export const Class = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export const Class = () => {
   };
   return (
     <>
+      { isUser ? <Home/> : ""}
       <div className="container">
         {institute ? (
           <>

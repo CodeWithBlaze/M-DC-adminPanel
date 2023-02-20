@@ -7,8 +7,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import * as api from "../../../axios/axiosReq"
-
+import * as api from "../../../axios/axiosReq";
+import { Home } from "../Home/Home";
 export const Participant = () => {
   const navigate = useNavigate();
   let user = JSON.parse(localStorage.getItem("dcuser"));
@@ -25,40 +25,62 @@ export const Participant = () => {
   let id = useParams().id;
   let cid = useParams().cid; // class id
 
-
-
-  const createParticipant = async()=>{
-
-    let res = await api.createParticipant({name:pName,email:pEmail,role:participant,institute_id:id,class_id:cid})
-    if(res.data.email){
-      alert(`${participant} added`)
+  const createParticipant = async () => {
+    let res = await api.createParticipant({
+      name: pName,
+      email: pEmail,
+      role: participant,
+      institute_id: id,
+      class_id: cid,
+    });
+    console.log(res.data);
+    if (res.data.email) {
+      alert(`${participant} added`);
       setTimeout(() => {
         navigate("/");
       }, 1000);
-    }else{
-      alert("Something went wrong")
+    } else {
+      alert("Something went wrong");
     }
-    
-  }
+  };
 
   return (
     <>
+    { isUser ? <Home/> : ""}
       <div className="container">
-        <FormControl style={{ width: "30%", marginTop: "2rem" }}>
-          <InputLabel id="demo-simple-select-label">Add</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={participant}
-            label="Add "
-            onChange={(e) => {
-              setParticipant(e.target.value);
-            }}
-          >
-            <MenuItem value={"teacher"}>Teacher</MenuItem>
-            <MenuItem value={"student"}>Student</MenuItem>
-          </Select>
-        </FormControl>
+        {user.role == "teacher" ? (
+          <FormControl style={{ width: "30%", marginTop: "2rem" }}>
+            <InputLabel id="demo-simple-select-label">Add</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={participant}
+              label="Add "
+              onChange={(e) => {
+                setParticipant(e.target.value);
+              }}
+            >
+              <MenuItem value={"student"}>Student</MenuItem>
+            </Select>
+          </FormControl>
+        ) : (
+          <FormControl style={{ width: "30%", marginTop: "2rem" }}>
+            <InputLabel id="demo-simple-select-label">Add</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={participant}
+              label="Add "
+              onChange={(e) => {
+                setParticipant(e.target.value);
+              }}
+            >
+              <MenuItem value={"student"}>Student</MenuItem>
+              <MenuItem value={"Teacher"}>Teacher</MenuItem>
+            </Select>
+          </FormControl>
+        )}
+
         <TextField
           style={{ marginTop: "2rem", width: "30%" }}
           id="outlined-basic"
@@ -78,7 +100,9 @@ export const Participant = () => {
           }}
         />
         <Button
-          onClick={() => {createParticipant()}}
+          onClick={() => {
+            createParticipant();
+          }}
           style={{ marginTop: "2rem", width: "10%", border: "1px solid" }}
         >
           Create
