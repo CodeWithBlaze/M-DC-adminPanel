@@ -3,15 +3,21 @@ import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import * as api from "../../../axios/axiosReq";
-
+import { Home } from "../Home/Home";
 export const AddMod = () => {
   const navigate = useNavigate();
   let user = JSON.parse(localStorage.getItem("dcuser"));
   const isUser = user?.token ? true : false;
+  const userRole = user?.role;
   if (!isUser) {
     setTimeout(() => {
       navigate("/login");
     }, 100);
+  } else if (userRole == "moderator"||userRole == "teacher") {
+    let institute_id = user?.institute_id;
+    setTimeout(() => {
+      navigate(`/viewclasses/${institute_id}`);
+    }, 1000);
   }
 
   const [modname, setModName] = useState("");
@@ -28,6 +34,7 @@ export const AddMod = () => {
       role: "moderator",
       institute_id: id,
     });
+
     if (res.data.email) {
       alert("Moderator added");
       setTimeout(() => {
@@ -38,6 +45,7 @@ export const AddMod = () => {
 
   return (
     <>
+      { isUser ? <Home/> : ""}
       <div className="container">
         <TextField
           style={{ marginTop: "2rem", width: "30%" }}

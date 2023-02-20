@@ -3,11 +3,12 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import * as api from "../../../axios/axiosReq";
-
+import { Home } from "../Home/Home";
 export const AddClass = () => {
   const navigate = useNavigate();
   let user = JSON.parse(localStorage.getItem("dcuser"));
   const isUser = user?.token ? true : false;
+  const userRole = user?.role;
   if (!isUser) {
     setTimeout(() => {
       navigate("/login");
@@ -31,6 +32,8 @@ export const AddClass = () => {
   };
   return (
     <>
+    
+      { isUser ? <Home/> : ""}
       <div className="container">
         <TextField
           style={{ marginTop: "2rem", width: "30%" }}

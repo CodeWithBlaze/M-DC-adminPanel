@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as api from "../../../axios/axiosReq";
-
+import { Home } from "../Home/Home";
 export const IndividualClass = () => {
   const navigate = useNavigate();
   let user = JSON.parse(localStorage.getItem("dcuser"));
@@ -34,6 +34,7 @@ export const IndividualClass = () => {
   }, []);
   return (
     <>
+    { isUser ? <Home/> : ""}
       <div className="container">
         <table>
           <tr>

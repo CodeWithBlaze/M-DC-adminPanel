@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import * as api from "../../../axios/axiosReq";
-
+import { Home } from "../Home/Home";
 export const ViewClasses = () => {
   const navigate = useNavigate();
   let user = JSON.parse(localStorage.getItem("dcuser"));
@@ -19,6 +19,7 @@ export const ViewClasses = () => {
   useEffect(() => {
     let getClasses = async () => {
       let res = await api.getClasess(institute_id);
+      console.log(res);
       setClasses(res.data);
     };
 
@@ -34,6 +35,7 @@ export const ViewClasses = () => {
 
   return (
     <>
+    { isUser ? <Home/> : ""}
       <div className="container">
         <table>
           <tr>

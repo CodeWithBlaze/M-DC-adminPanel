@@ -14,13 +14,10 @@ import { useState } from "react";
 import { IndividualClass } from "./components/admin/Institute/IndividualClass";
 
 function App() {
-  let user = JSON.parse(localStorage.getItem("dcuser"));
-  const isUser = user?.token ? true : false;
   return (
     <>
       <Router>
         <>
-          {isUser ? <Home setUserLog /> : ""}
           <Routes>
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/" element={<Institute />} />
